@@ -1,4 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
+import { ethers } from 'ethers';
 import { Dialog, Listbox, Transition } from '@headlessui/react';
 import { useAtom } from 'jotai';
 import {
@@ -47,6 +48,42 @@ const FunctionList = () =>{
     SetIntactWalletAddress("")
   }
 
+  /* function ConnectEther() {
+    const [isConnected, setIsConnected] = useState(false);
+  
+    const connectWallet = async () => {
+      try {
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        await provider.send('eth_requestAccounts',   
+   []);
+        setIsConnected(true);
+      } catch   
+   (error) {
+        console.error(error);
+      }
+    };
+  */
+
+function ConnectEther() {
+    const [isConnected, setIsConnected] = useState(false);
+  
+    const connectWallet = async () => {
+      try {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      await provider.send('eth_requestAccounts',   
+ []);
+      setIsConnected(true);
+    } catch   
+ (error) {
+      console.error(error);
+    }
+  };
+    return (
+      <button onClick={connectWallet} disabled={isConnected}>
+        {isConnected ? 'Connected' : 'Connect Wallet'}
+      </button>
+    );
+  }
   return (
       <>
         <div className="mt-5 flex-col  justify-between ">
